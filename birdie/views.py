@@ -15,3 +15,5 @@ class AdminView(generic.TemplateView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         return super(AdminView, self).dispatch(request, *args, **kwargs)
+
+
