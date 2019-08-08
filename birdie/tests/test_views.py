@@ -26,4 +26,21 @@ class TestAdminView:
         req = RequestFactory().get('/')
         req.user = user
         resp = views.AdminView.as_view()(req)
-        assert resp.status_code == 200, "Should authenticate user"
+        assert resp.status_code == 200, "Should allow authenticate user to access"
+
+
+class TestPostUpdateView:
+    def test_get(self):
+        req = RequestFactory().get('/')
+        obj = mixer.blend('birdie.Post')
+        resp = views.PostUpdateView.as_view()(req, pk=obj.pk)
+        assert resp.status_code == 200, "Should be callable by anyone"
+
+    def test_post(self):
+        post = mixer.blend('birdie.Post')
+        data = {'body': 'New body text'}
+        req = RequestFactory().post('/', data=data)
+        resp = views.PostUpdateView.as_view()(req, pk=post.pk)
+        assert resp.status_code == 302, "Should redirect to success view"
+        post.refresh_from_db()
+        assert post.body == "New body text", "Should update the post"
