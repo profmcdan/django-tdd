@@ -72,7 +72,7 @@ python-docx==0.8.10
 python-dotenv==0.10.3
 pytz==2019.2
 requests==2.22.0
-rsa==4.0
+rsa==4.1
 s3transfer==0.2.1
 six==1.12.0
 SoundFile==0.10.2
